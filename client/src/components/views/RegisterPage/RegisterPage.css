@@ -1,4 +1,4 @@
-#div {
+#registerdiv {
   display : flex;
   justify-content : center;
   align-items : center;
@@ -7,7 +7,7 @@
   background-color: rgb(184, 149, 149);
 }
 
-#form {
+#registerform {
   padding: 20px;
   display: flex;
   flex-direction: column;

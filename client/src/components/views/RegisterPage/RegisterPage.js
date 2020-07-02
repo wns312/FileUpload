@@ -44,8 +44,8 @@ const RegisterPage = (props) => {
     }) 
   }
   return (
-    <div id ='div'>
-      <form id='form' onSubmit={onSubmitHandler}>
+    <div id ='registerdiv'>
+      <form id='registerform' onSubmit={onSubmitHandler}>
         <label>Email</label>
         <input type="email" value={Email} onChange={onEmailHandler}/>
         <label>Name</label>

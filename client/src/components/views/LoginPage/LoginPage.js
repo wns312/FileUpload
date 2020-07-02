@@ -31,8 +31,8 @@ const LoginPage = (props) => {
     }) 
   }
   return (
-    <div id ='div'>
-      <form id='form' onSubmit={onSubmitHandler}>
+    <div id ='logindiv'>
+      <form id='loginform' onSubmit={onSubmitHandler}>
         <label>Email</label>
         <input type="email" value={Email} onChange={onEmailHandler}/>
         <label>Password</label>

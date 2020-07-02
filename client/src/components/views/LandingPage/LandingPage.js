@@ -16,7 +16,8 @@ const LandingPage = (props) => {
     
   }
   return (
-    <div id='div'>
+    <div id='landingdiv'>
+      <a href="/videoupload">비디오페이지</a>
       <button onClick={onClickHandler}>로그아웃</button>
     </div>
   );

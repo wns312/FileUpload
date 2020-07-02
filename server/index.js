@@ -8,6 +8,8 @@ const { User } = require('./models/User');
 const { mongoURI } = require('./config/key')
 const { auth } = require('./middleware/auth')
 
+const videoRouter = require('./routes/video')
+
 //application/x-www-form-urlencoded 타입 데이터를 분석해서 가져올 수 있게 해준다.
 app.use(bodyParser.urlencoded({ extended: true }));
 //application/json 타입 데이터를 분석해 가져올 수 있게 해준다.
@@ -21,10 +23,15 @@ mongoose.connect(mongoURI, {
 .then(() => { console.log("connected") })
 .catch((err) => { console.log(err) })
 
-app.get('/api', (req, res) => {
-  res.send('Hello world')
-})
+app.use('/api/video',videoRouter);
 
+
+
+
+
+
+
+//여기는 유저
 app.post('/api/users/register', (req, res) => {
   const user = new User(req.body);
   user.save((err, doc) => {
@@ -71,7 +78,6 @@ app.get('/api/users/auth', auth, (req, res) => {
     image: req.user.image
   })
 })
-
 //로그아웃
 app.get('/api/users/logout', auth, (req, res)=>{
   //유저를 찾아왔을테니 업데이트 해주어야 한다
@@ -80,7 +86,6 @@ app.get('/api/users/logout', auth, (req, res)=>{
     return res.status(200).send({success : true})
   })
 })
-
 const port = 5000;
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
