@@ -79,4 +79,15 @@ router.post('/uploadVideo', (req,res)=>{
   });
 })
 
+router.get('/getVideos', (req,res)=>{
+  //DB에 접근해서 비디오 가져오기
+  Video.find()// ObjectId를 적을때 ref로 User테이블의 모든 정보를 가져온다고했는데
+  .populate('writer') //그냥 가져올 수 있는것이 아니라 populate를 해주어야 가져올 수 있다.(쓰지않으면 writer의 Id만 가져온다)
+  .exec((err, videos)=>{ // videos라는 이름으로 모든 정보를 가져온 것이다
+    if(err) return res.status(400).send(err)
+    res.status(200).json({success : true, videos})
+  })
+})
+
+
 module.exports = router
