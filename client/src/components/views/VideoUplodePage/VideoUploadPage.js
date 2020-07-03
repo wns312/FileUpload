@@ -25,6 +25,9 @@ const VideoUploadPage = () => {
   const [videoDescription, setVideoDescription] = useState("");
   const [Private, setPrivate] = useState(0); //0이 private, 1이 public
   const [Category, setCategory] = useState("Film & animation");
+  const [Filepath, setFilepath] = useState("");
+  const [Duration, setDuration] = useState("");
+  const [ThumbnailPath, setThumbnailPath] = useState("");
 
   function onTitleChange(event) {
     setVideoTitle(event.currentTarget.value)
@@ -38,6 +41,7 @@ const VideoUploadPage = () => {
   function onCategoryChange(event) {
     setCategory(event.currentTarget.value)
   }
+
   function onDrop(files) {
     let formData = new FormData();
     const config = {
@@ -45,11 +49,27 @@ const VideoUploadPage = () => {
     }
     formData.append("file", files[0])
     
-    console.log(files[0]);
     axios.post('/api/video/uploadfiles', formData, config)
     .then((response)=>{
       if (response.data.success) {
         console.log(response.data);
+        setFilepath(response.data.fileName); // state에 저장 1
+        //성공적으로 응답 받고 다시 요청
+        let variable = {
+          url : response.data.url,
+          fileName : response.data.fileName
+        }
+        axios.post('/api/video/thumbnail', variable)
+        .then(response=>{
+          if(response.data.success) {
+            console.log(response.data);
+            setThumbnailPath(response.data.url); // state에 저장 2
+            setDuration(response.data.fileDuration); // state에 저장 3           
+          }else{
+            alert("썸네일 생성에 실패했습니다")
+          }
+        })
+
       }else{
         console.log("업로드에 실패했습니다");
       }
@@ -67,7 +87,7 @@ const VideoUploadPage = () => {
         <Dropzone
         onDrop={onDrop}
         multiple={false}
-        maxSize={1000000}
+        maxSize={1000000000}
         >
           {({getRootProps, getInputProps})=>
             <div style={{width : '300px', height :'240px', border:'1px solid lightgray', display : 'flex',
@@ -78,9 +98,15 @@ const VideoUploadPage = () => {
           }
         </Dropzone>
         {/* thumbnail */}
+        {ThumbnailPath && //있을때만 보여주도록
         <div>
-          <img src alt/>
+          {console.log(ThumbnailPath)}
+          <img src={`http://localhost:5000/${ThumbnailPath}`} alt={"thumbnail"}/>
         </div>
+        }
+        
+
+
       </div>
       <br/><br/>
       <label>Title</label>

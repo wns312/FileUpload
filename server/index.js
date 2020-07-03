@@ -23,6 +23,7 @@ mongoose.connect(mongoURI, {
 .then(() => { console.log("connected") })
 .catch((err) => { console.log(err) })
 
+app.use('/uploads', express.static('uploads'));
 app.use('/api/video',videoRouter);
 
 
