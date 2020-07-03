@@ -94,7 +94,11 @@ const VideoUploadPage = (props) => {
         if (response.data.success) {
           console.log(response.data); 
           message.success('성공적으로 업로드를 했습니다')
-          props.history.push('/')
+
+          setTimeout(() => {
+            props.history.push('/');
+          }, 2000);
+          
           
         } else {
           alert("서버에 비디오 저장 실패")
@@ -113,7 +117,6 @@ const VideoUploadPage = (props) => {
             onDrop={onDrop}
             multiple={false}
             maxSize={1000000000}
-            clickable={false}
           >
             {({ getRootProps, getInputProps }) =>
               <div style={{
@@ -128,7 +131,6 @@ const VideoUploadPage = (props) => {
           {/* thumbnail */}
           {ThumbnailPath && //있을때만 보여주도록
             <div>
-              {console.log(ThumbnailPath)}
               <img src={`http://localhost:5000/${ThumbnailPath}`} alt={"thumbnail"} />
             </div>
           }

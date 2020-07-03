@@ -38,7 +38,6 @@ router.post('/uploadfiles', (req,res)=>{
   })
 })
 
-
 router.post('/thumbnail', (req, res)=>{
   let filePath = ''
   let fileDuration = ''
@@ -78,10 +77,6 @@ router.post('/uploadVideo', (req,res)=>{
     if(err) return res.json({success : false, err})
     res.status(200).json({success : true})
   });
-
 })
 
-
-
-
-module.exports =router
+module.exports = router
