@@ -80,7 +80,7 @@ const VideoUploadPage = (props) => {
   function onSubmit(event) {
     event.preventDefault();
     let variables = {
-      writer: user.userData._id, // 리덕스에서 유저데이터의 아이디를 가져온다
+      writer: user.userData.userId, // 리덕스에서 유저데이터의 아이디를 가져온다
       title: videoTitle,
       description: videoDescription,
       privacy: Private,
